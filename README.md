@@ -1,41 +1,42 @@
-<!--- Licensed to the Apache Software Foundation (ASF) under one -->
-<!--- or more contributor license agreements.  See the NOTICE file -->
-<!--- distributed with this work for additional information -->
-<!--- regarding copyright ownership.  The ASF licenses this file -->
-<!--- to you under the Apache License, Version 2.0 (the -->
-<!--- "License"); you may not use this file except in compliance -->
-<!--- with the License.  You may obtain a copy of the License at -->
-
-<!---   http://www.apache.org/licenses/LICENSE-2.0 -->
-
-<!--- Unless required by applicable law or agreed to in writing, -->
-<!--- software distributed under the License is distributed on an -->
-<!--- "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY -->
-<!--- KIND, either express or implied.  See the License for the -->
-<!--- specific language governing permissions and limitations -->
-<!--- under the License. -->
 
 # neural-style
 
-An example of neural style transfer
+This is a repackage of the [neural style transfer example of Mxnet.](https://github.com/apache/incubator-mxnet/tree/master/contrib/clojure-package/examples/neural-style) 
 
-## Usage
+# Run 
 
-use the `download.sh` script to get the params file and the input and output file
+```
+# usage
+# lein run <content-image> <style-image>
 
-Then use `lein run`
+# example
+lein run annecy.jpg starry_night.jpg 
+```
 
-The output images will be stored in the output directory. Please feel free to play with the params at the top of the file
+# Single jar file
 
+```
+lein uberjar
+java -jar target/neural-style-0.1.0-SNAPSHOT-standalone.jar annecy.jpg starry_night.jpg 
+```
 
-This example only works on 1 device (cpu) right now
+# Example 
 
-If you are running on AWS you will need to setup X11 for graphics
-`sudo apt install xauth x11-apps`
+```
+lein run annecy.jpg starry_night.jpg 
+```
 
-then relogin in `ssh -X -i creds ubuntu@yourinstance`
+With content image ...
+![](annecy.jpg)
 
+And style image ...
 
-_Note: This example is not working all the way - it needs some debugging help_
+![](starry_night.jpg)
 
+Result keeping blur after 30 iterations ...
 
+![](out_28.png)
+
+FInal result no blur
+
+![](final.png)
