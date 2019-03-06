@@ -12,3 +12,4 @@ pom.xml.asc
 output/*
 input/*
 model/
+starry.out

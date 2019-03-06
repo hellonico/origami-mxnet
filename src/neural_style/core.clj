@@ -32,8 +32,9 @@
   (:gen-class));; An Implementation of the paper A Neural Algorithm of Artistic Style
  ;;by Leon A. Gatys, Alexander S. Ecker, and Matthias Bethge
 
-(when-not (.exists (io/file "input"))
-  (do (println "Retrieving data...") (sh "./download.sh")))
+(when-not (.exists (io/file "model"))
+  (do (println "Retrieving data...") 
+    (sh "bash" "-c" "mkdir -p model && cd model && wget https://github.com/dmlc/web-data/raw/master/mxnet/neural-style/model/vgg19.params")))
 
 (def content-image (atom nil))
 (def style-image (atom nil))
@@ -227,12 +228,13 @@
     (ndarray->image img))))
 
 (defn -main [& args]
-  ;;; Note this only works on cpu right now
-  (let [[input style dev dev-num] args
-        devs (if (= dev ":gpu")
-               (mapv #(context/gpu %) (range (Integer/parseInt (or dev-num "1"))))
-               (mapv #(context/cpu %) (range (Integer/parseInt (or dev-num "1")))))]
-    (reset! content-image input)
-    (reset! style-image style)
-    (println "Running with context devices of" devs)
-    (train devs)))
+  (if (> 2 (count args))
+    (println "Usage: lein run <content-image> <style-image>")
+    (let [[input style dev dev-num] args
+      devs (if (= dev ":gpu")
+             (mapv #(context/gpu %) (range (Integer/parseInt (or dev-num "1"))))
+             (mapv #(context/cpu %) (range (Integer/parseInt (or dev-num "1")))))]
+      (reset! content-image input)
+      (reset! style-image style)
+      (println "Running with context devices of" devs)
+      (train devs))))
