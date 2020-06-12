@@ -39,4 +39,13 @@ Result keeping blur after 30 iterations ...
 
 FInal result no blur
 
-![](final.png)
+![](starry_night.png)
+
+Or with Paul Klee:
+
+![](klee2.jpg)
+![](klee2.png)
+
+Or with Monet:
+![](monet.jpg)
+![](monet.png)
